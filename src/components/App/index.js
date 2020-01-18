@@ -1,7 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { Router, Route } from "react-router-dom";
-import LandingPage from "../Landing";
+import HomePage from "../Home";
 import * as ROUTES from "../../constants/routes";
 import configureStore from "../../configureStore";
 import SignUpPage from "../SignUp";
@@ -39,7 +39,7 @@ function App() {
 
           <Router history={history}>
             <div>
-              <Route exact path={ROUTES.LANDING} component={LandingPage} />
+              <Route exact path={ROUTES.HOME} component={HomePage} />
               <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
               <Route path={ROUTES.SIGN_IN} component={SignInPage} />
             </div>

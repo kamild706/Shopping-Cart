@@ -15,12 +15,12 @@ import { signUpUserWithEmailAndPassword } from "../../actions";
 import * as ROUTES from "../../constants/routes";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from "react-router-dom";
 
 export default function SignUpPage() {
   const hasUserSignedUp = useSelector(store => store.auth.isAuthenticated);
   if (hasUserSignedUp) {
-    return <Redirect to={ROUTES.LANDING} />;
+    return <Redirect to={ROUTES.HOME} />;
   }
 
   return <SignUpForm />;
@@ -194,7 +194,12 @@ function SignUpForm() {
       </Paper>
       <Grid container justify="flex-end">
         <Grid item>
-          <Link href="#" component={RouterLink} variant="body2" to={ROUTES.SIGN_IN}>
+          <Link
+            href="#"
+            component={RouterLink}
+            variant="body2"
+            to={ROUTES.SIGN_IN}
+          >
             Already have an account? Sign in
           </Link>
         </Grid>

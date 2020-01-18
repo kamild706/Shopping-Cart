@@ -29,11 +29,9 @@ class Firebase {
 
   signOut = () => this.auth.signOut();
 
-  resetPassword = email =>
-    this.auth.sendPasswordResetEmail(email);
+  resetPassword = email => this.auth.sendPasswordResetEmail(email);
 
-  updatePassword = password =>
-    this.auth.currentUser.updatePassword(password);
+  updatePassword = password => this.auth.currentUser.updatePassword(password);
 }
 
 export default Firebase;

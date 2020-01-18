@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import * as ROUTES from "../../constants/routes";
 import React, { useState } from "react";
-import {Link as RouterLink, Redirect} from "react-router-dom";
+import { Link as RouterLink, Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import { useInput } from "../../utils/useInput";
 import { loginUser } from "../../actions";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
-import LockOutlinedIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -46,7 +46,7 @@ const useStyles = makeStyles({
 export default function SignInPage() {
   const hasUserSignedUp = useSelector(store => store.auth.isAuthenticated);
   if (hasUserSignedUp) {
-    return <Redirect to={ROUTES.LANDING} />;
+    return <Redirect to={ROUTES.HOME} />;
   }
 
   return <SignInForm />;
@@ -152,12 +152,17 @@ function SignInForm() {
         </Button>
       </Paper>
       <Grid container justify="flex-end">
-      <Grid item>
-        <Link href="#" component={RouterLink} variant="body2" to={ROUTES.SIGN_UP}>
-          Don't have an account? Sign up
-        </Link>
+        <Grid item>
+          <Link
+            href="#"
+            component={RouterLink}
+            variant="body2"
+            to={ROUTES.SIGN_UP}
+          >
+            Don't have an account? Sign up
+          </Link>
+        </Grid>
       </Grid>
-    </Grid>
     </Container>
   );
 }

@@ -12,7 +12,7 @@ import {
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILURE
 } from "../constants/actionTypes";
-import history from "../history"
+import history from "../history";
 import * as ROUTES from "../constants/routes";
 
 const requestSignUp = () => ({
@@ -71,8 +71,7 @@ const verifySuccess = () => {
 export const signUpUserWithEmailAndPassword = (email, password) => dispatch => {
   dispatch(requestSignUp());
   firebase.createUserWithEmailAndPassword(email, password).then(
-    // user => dispatch(receiveSignUp(user)),
-    user => {},
+    user => dispatch(receiveSignUp(user)),
     error => dispatch(signUpError(error))
   );
 };
@@ -80,8 +79,7 @@ export const signUpUserWithEmailAndPassword = (email, password) => dispatch => {
 export const loginUser = (email, password) => dispatch => {
   dispatch(requestLogin());
   firebase.signInWithEmailAndPassword(email, password).then(
-    // user => dispatch(receiveLogin(user)),
-    user => {},
+    user => dispatch(receiveLogin(user)),
     error => dispatch(loginError(error))
   );
 };
@@ -89,9 +87,9 @@ export const loginUser = (email, password) => dispatch => {
 export const logoutUser = () => dispatch => {
   dispatch(requestLogout());
   firebase.signOut().then(
-    () =>  {
-      history.push(ROUTES.LANDING)
-      dispatch(receiveLogout())
+    () => {
+      history.push(ROUTES.HOME);
+      dispatch(receiveLogout());
     },
     error => dispatch(logoutError(error))
   );
@@ -99,16 +97,11 @@ export const logoutUser = () => dispatch => {
 
 export const verifyAuth = () => dispatch => {
   dispatch(verifyRequest());
-  // const authUser = JSON.parse(localStorage.getItem("authUser"));
-  // if (authUser) dispatch(receiveLogin(authUser));
 
   firebase.auth.onAuthStateChanged(user => {
-    console.log(user);
     if (user) {
-      // localStorage.setItem("authUser", JSON.stringify(user));
       dispatch(receiveLogin(user));
     } else {
-      // localStorage.removeItem("authUser");
       dispatch(logoutUser());
     }
     dispatch(verifySuccess());

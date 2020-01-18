@@ -37,8 +37,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isSigningUp: false,
-        isAuthenticated: true,
-        user: action.credential.user
+        isAuthenticated: true
       };
     case SIGN_UP_FAILURE:
       return {
