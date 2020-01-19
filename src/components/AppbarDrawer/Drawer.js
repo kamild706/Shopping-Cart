@@ -1,5 +1,6 @@
 import NavDrawer from "@material-ui/core/Drawer";
 import clsx from "clsx";
+import * as ROUTES from "../../constants/routes";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -11,6 +12,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import React from "react";
 import { useTheme } from "@material-ui/core";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
+import { Link } from "react-router-dom";
 
 export default function Drawer({ classes, drawerOpen, handleDrawerClose }) {
   const theme = useTheme();
@@ -40,7 +42,12 @@ export default function Drawer({ classes, drawerOpen, handleDrawerClose }) {
       </div>
       <Divider />
       <List>
-        <ListItem button key="Shopping lists">
+        <ListItem
+          component={Link}
+          to={ROUTES.SHOPPING_LISTS}
+          button
+          key="Shopping lists"
+        >
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>

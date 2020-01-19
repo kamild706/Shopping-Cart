@@ -27,7 +27,7 @@ export default function UnauthenticatedHomePage() {
           component={RouterLink}
           variant="contained"
           color="primary"
-          to={ROUTES.SIGN_IN}
+          to={ROUTES.SIGN_UP}
         >
           Sign up
         </Button>

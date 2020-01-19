@@ -68,10 +68,20 @@ const verifySuccess = () => {
   };
 };
 
-export const signUpUserWithEmailAndPassword = (email, password) => dispatch => {
+const updateUsername = username => {
+  const user = firebase.auth.currentUser;
+  return user.updateProfile({
+    displayName: username
+  });
+};
+
+export const signUpUserWithEmailAndPassword = (email, password, username) => dispatch => {
   dispatch(requestSignUp());
   firebase.createUserWithEmailAndPassword(email, password).then(
-    user => dispatch(receiveSignUp(user)),
+    user => {
+      updateUsername(username);
+      dispatch(receiveSignUp(user))
+    },
     error => dispatch(signUpError(error))
   );
 };

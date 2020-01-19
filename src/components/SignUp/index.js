@@ -75,7 +75,8 @@ function SignUpForm() {
     event.preventDefault();
     const enteredEmail = email.value.trim();
     const enteredPassword = password1.value;
-    dispatch(signUpUserWithEmailAndPassword(enteredEmail, enteredPassword));
+    const enteredUsername = username.value.trim();
+    dispatch(signUpUserWithEmailAndPassword(enteredEmail, enteredPassword, enteredUsername));
   }
 
   function isValid() {

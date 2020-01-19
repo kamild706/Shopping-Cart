@@ -9,8 +9,10 @@ import Typography from "@material-ui/core/Typography";
 import { AccountCircle } from "@material-ui/icons";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../actions";
+import * as ROUTES from "../../constants/routes";
+import history from "../../history";
 
 export default function Appbar({
   classes,
@@ -21,6 +23,8 @@ export default function Appbar({
   const [anchorEl, setAnchorEl] = React.useState(null);
   const menuOpen = Boolean(anchorEl);
   const dispatch = useDispatch();
+
+  const user = useSelector(store => store.auth.user);
 
   function handleLogout() {
     dispatch(logoutUser());
@@ -33,6 +37,10 @@ export default function Appbar({
 
   function handleCloseMenu() {
     setAnchorEl(null);
+  }
+
+  function handleTitleClicked() {
+    history.push(ROUTES.HOME);
   }
 
   function renderDrawerIcon() {
@@ -53,35 +61,38 @@ export default function Appbar({
 
   function renderUserMenu() {
     return (
-      <div>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="menu-appbar"
-          aria-haspopup="true"
-          onClick={handleMenu}
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <Menu
-          id="menu-appbar"
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right"
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right"
-          }}
-          open={menuOpen}
-          onClose={handleCloseMenu}
-        >
-          <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        </Menu>
-      </div>
+      <>
+        <Typography>{user && user.displayName}</Typography>
+        <div>
+          <IconButton
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMenu}
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right"
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right"
+            }}
+            open={menuOpen}
+            onClose={handleCloseMenu}
+          >
+            <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </Menu>
+        </div>
+      </>
     );
   }
 
@@ -96,7 +107,11 @@ export default function Appbar({
       >
         <Toolbar>
           {isAuthenticated && renderDrawerIcon()}
-          <Typography variant="h6" className={classes.title}>
+          <Typography
+            variant="h6"
+            className={classes.title}
+            onClick={handleTitleClicked}
+          >
             Shopping Cart
           </Typography>
           {isAuthenticated && renderUserMenu()}
